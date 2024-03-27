@@ -177,7 +177,7 @@ public class RePairGrammar {
       String str = r.getRuleString();
       String[] tokens = str.split("\\s+");
       for (String t : tokens) {
-        if (t.startsWith("R")) {
+        if (t.matches("R\\d+")) {
           Integer ruleId = Integer.valueOf(t.substring(1));
           GrammarRuleRecord rr = res.get(ruleId);
           // System.out.print(rr.getRuleUseFrequency() + " ");

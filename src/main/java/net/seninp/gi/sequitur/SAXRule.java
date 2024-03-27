@@ -25,6 +25,8 @@ import java.util.Set;
 import java.util.TreeSet;
 import java.util.Vector;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import net.seninp.gi.logic.GrammarRuleRecord;
 import net.seninp.gi.logic.GrammarRules;
 
@@ -325,7 +327,7 @@ public class SAXRule {
       String[] split = curString.split(" ");
 
       for (String s : split) {
-        if (s.startsWith("R")) {
+        if (s.matches("R\\d+")) {
           resultString.append(" ").append(expandRule(Integer.valueOf(s.substring(1, s.length()))));
         }
         else {
@@ -344,14 +346,14 @@ public class SAXRule {
     GrammarRuleRecord ruleRecord = arrRuleRecords.get(0);
     resultString.append(ruleRecord.getRuleString());
 
-    int currentSearchStart = resultString.indexOf("R");
+    int currentSearchStart =  indexOfRegex(String.valueOf(resultString), "R\\d+");//resultString.indexOf("R");
     while (currentSearchStart >= 0) {
       int spaceIdx = resultString.indexOf(" ", currentSearchStart);
       String ruleName = resultString.substring(currentSearchStart, spaceIdx + 1);
       Integer ruleId = Integer.valueOf(ruleName.substring(1, ruleName.length() - 1));
       resultString.replace(spaceIdx - ruleName.length() + 1, spaceIdx + 1,
-          arrRuleRecords.get(ruleId).getExpandedRuleString());
-      currentSearchStart = resultString.indexOf("R");
+              arrRuleRecords.get(ruleId).getExpandedRuleString());
+      currentSearchStart = indexOfRegex(String.valueOf(resultString), "R\\d+");
     }
     ruleRecord.setExpandedRuleString(resultString.toString().trim());
     // ruleRecord.setRuleYield(countSpaces(resultString));
@@ -370,7 +372,7 @@ public class SAXRule {
     String[] split = curString.split(" ");
 
     for (String s : split) {
-      if (s.startsWith("R")) {
+      if (s.matches("R\\d+")) {
         resultString.append(" ").append(expandRule(Integer.valueOf(s.substring(1, s.length()))));
       }
       else {
@@ -485,6 +487,17 @@ public class SAXRule {
       processedRules++;
     }
 
+  }
+
+  private static int indexOfRegex(String str, String regex) {
+    Pattern pattern = Pattern.compile(regex);
+    Matcher matcher = pattern.matcher(str);
+
+    if (matcher.find()) {
+      return matcher.start();
+    } else {
+      return -1;  // Return -1 if no match found
+    }
   }
 
   public GrammarRules toGrammarRulesData() {

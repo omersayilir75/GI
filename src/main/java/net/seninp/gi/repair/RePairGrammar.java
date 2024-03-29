@@ -17,7 +17,7 @@ import net.seninp.jmotif.sax.datastructure.SAXRecords;
 public class RePairGrammar {
 
   /** Common prefix. */
-  private static final char THE_R = 'R';
+  private static final String THE_R = "Rule";
 
   /** The spacer. */
   private static final char SPACE = ' ';
@@ -78,7 +78,7 @@ public class RePairGrammar {
         int spaceIdx = resultString.indexOf(SPACE, currentSearchStart);
 
         String ruleName = resultString.substring(currentSearchStart, spaceIdx + 1);
-        Integer ruleId = Integer.valueOf(ruleName.substring(1, ruleName.length() - 1));
+        Integer ruleId = Integer.valueOf(ruleName.substring(4, ruleName.length() - 1));
 
         RePairRule rule = this.theRules.get(ruleId);
         if (rule != null) {
@@ -90,7 +90,7 @@ public class RePairGrammar {
           }
         }
 
-        currentSearchStart = resultString.indexOf("R", spaceIdx);
+        currentSearchStart = resultString.indexOf("Rule", spaceIdx);
       }
 
       rr.setExpandedRule(resultString.trim());
@@ -105,7 +105,7 @@ public class RePairGrammar {
     while (currentSearchStart >= 0) {
       int spaceIdx = resultString.indexOf(SPACE, currentSearchStart);
       String ruleName = resultString.substring(currentSearchStart, spaceIdx + 1);
-      Integer ruleId = Integer.valueOf(ruleName.substring(1, ruleName.length() - 1));
+      Integer ruleId = Integer.valueOf(ruleName.substring(4, ruleName.length() - 1));
       RePairRule rule = this.theRules.get(ruleId);
       if (rule != null) {
         if (rule.expandedRuleString.charAt(rule.expandedRuleString.length() - 1) == ' ') {
@@ -115,7 +115,7 @@ public class RePairGrammar {
           resultString = resultString.replaceAll(ruleName, rule.expandedRuleString + SPACE);
         }
       }
-      currentSearchStart = resultString.indexOf("R", spaceIdx);
+      currentSearchStart = resultString.indexOf("Rule", spaceIdx);
     }
     this.r0ExpandedString = resultString;
 
@@ -177,8 +177,8 @@ public class RePairGrammar {
       String str = r.getRuleString();
       String[] tokens = str.split("\\s+");
       for (String t : tokens) {
-        if (t.matches("R\\d+")) {
-          Integer ruleId = Integer.valueOf(t.substring(1));
+        if (t.matches("Rule\\d+")) {
+          Integer ruleId = Integer.valueOf(t.substring(4));
           GrammarRuleRecord rr = res.get(ruleId);
           // System.out.print(rr.getRuleUseFrequency() + " ");
           int newFreq = rr.getRuleUseFrequency() + 1;

@@ -150,10 +150,10 @@ public class SAXRule {
             referedTo.index = index;
             rules.addElement(referedTo);
           }
-          text.append('R');
+          text.append("Rule");
           text.append(index);
 
-          currentRuleString.append('R');
+          currentRuleString.append("Rule");
           currentRuleString.append(index);
         }
         else {
@@ -327,8 +327,8 @@ public class SAXRule {
       String[] split = curString.split(" ");
 
       for (String s : split) {
-        if (s.matches("R\\d+")) {
-          resultString.append(" ").append(expandRule(Integer.valueOf(s.substring(1, s.length()))));
+        if (s.matches("Rule\\d+")) {
+          resultString.append(" ").append(expandRule(Integer.valueOf(s.substring(4, s.length()))));
         }
         else {
           resultString.append(" ").append(s);
@@ -346,14 +346,14 @@ public class SAXRule {
     GrammarRuleRecord ruleRecord = arrRuleRecords.get(0);
     resultString.append(ruleRecord.getRuleString());
 
-    int currentSearchStart =  indexOfRegex(String.valueOf(resultString), "R\\d+");//resultString.indexOf("R");
+    int currentSearchStart =  indexOfRegex(String.valueOf(resultString), "Rule\\d+");
     while (currentSearchStart >= 0) {
       int spaceIdx = resultString.indexOf(" ", currentSearchStart);
       String ruleName = resultString.substring(currentSearchStart, spaceIdx + 1);
-      Integer ruleId = Integer.valueOf(ruleName.substring(1, ruleName.length() - 1));
+      Integer ruleId = Integer.valueOf(ruleName.substring(4, ruleName.length() - 1));
       resultString.replace(spaceIdx - ruleName.length() + 1, spaceIdx + 1,
               arrRuleRecords.get(ruleId).getExpandedRuleString());
-      currentSearchStart = indexOfRegex(String.valueOf(resultString), "R\\d+");
+      currentSearchStart = indexOfRegex(String.valueOf(resultString), "Rule\\d+");
     }
     ruleRecord.setExpandedRuleString(resultString.toString().trim());
     // ruleRecord.setRuleYield(countSpaces(resultString));
@@ -372,8 +372,8 @@ public class SAXRule {
     String[] split = curString.split(" ");
 
     for (String s : split) {
-      if (s.matches("R\\d+")) {
-        resultString.append(" ").append(expandRule(Integer.valueOf(s.substring(1, s.length()))));
+      if (s.matches("Rule\\d+")) {
+        resultString.append(" ").append(expandRule(Integer.valueOf(s.substring(4, s.length()))));
       }
       else {
         resultString.append(" ").append(s);
@@ -462,7 +462,7 @@ public class SAXRule {
             referedTo.index = index;
             rules.addElement(referedTo);
           }
-          sbCurrentRule.append('R');
+          sbCurrentRule.append("Rule");
           sbCurrentRule.append(index);
         }
         else {

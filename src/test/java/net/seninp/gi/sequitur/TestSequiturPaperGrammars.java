@@ -15,17 +15,17 @@ import net.seninp.util.StackTrace;
 public class TestSequiturPaperGrammars {
 
   private static final String TEST1_STRING = "a b c d b c";
-  private static final String TEST1_R0 = "a R1 d R1";
+  private static final String TEST1_R0 = "a Rule1 d Rule1";
   private static final String TEST1_R1 = "b c";
 
   private static final String TEST2_STRING = "a b c d b c a b c d b c";
-  private static final String TEST2_R0 = "R1 R1";
-  private static final String TEST2_R1 = "a R2 d R2";
+  private static final String TEST2_R0 = "Rule1 Rule1";
+  private static final String TEST2_R1 = "a Rule2 d Rule2";
   private static final String TEST2_R2 = "b c";
 
   private static final String TEST3_STRING = "a b a b c a b c d a b c d e a b c d e f";
-  private static final String TEST3_R0 = "R1 R2 R3 R4 R4 f";
-  private static final String TEST3_R4 = "R3 e";
+  private static final String TEST3_R0 = "Rule1 Rule2 Rule3 Rule4 Rule4 f";
+  private static final String TEST3_R4 = "Rule3 e";
 
   @Test
   public void test3() {

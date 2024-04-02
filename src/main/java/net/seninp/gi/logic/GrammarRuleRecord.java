@@ -95,7 +95,7 @@ public class GrammarRuleRecord implements Serializable {
    * @return name of the rule, something like R1 or R30 etc.
    */
   public String getRuleName() {
-    return "Rule" + this.ruleNumber;
+    return "r" + this.ruleNumber;
   }
 
   /**
@@ -216,7 +216,7 @@ public class GrammarRuleRecord implements Serializable {
   }
 
   public String toString() {
-    return "Rule" + this.ruleNumber + " -> " + this.ruleString;
+    return "r" + this.ruleNumber + " -> " + this.ruleString;
   }
 
   public int getRuleNumber() {

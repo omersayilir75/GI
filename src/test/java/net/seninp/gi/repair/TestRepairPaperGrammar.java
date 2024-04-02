@@ -8,7 +8,7 @@ public class TestRepairPaperGrammar {
 
   private static final String TEST_STRING = "abc abc cba cba bac XXX abc abc cba cba bac";
 
-  private static final String TEST_R0 = "Rule4 XXX Rule4";
+  private static final String TEST_R0 = "r4 XXX r4";
 
   @Test
   public void testGrammarInference() {

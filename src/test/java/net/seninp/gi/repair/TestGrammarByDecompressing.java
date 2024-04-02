@@ -14,7 +14,7 @@ import net.seninp.jmotif.sax.datastructure.SAXRecords;
 
 public class TestGrammarByDecompressing {
 
-  private static final String THE_R = "Rule";
+  private static final String THE_R = "r";
 
   private static final char SPACE = ' ';
 
@@ -57,7 +57,7 @@ public class TestGrammarByDecompressing {
     while (currentSearchStart >= 0) {
       int spaceIdx = resultString.indexOf(SPACE, currentSearchStart);
       String ruleName = resultString.substring(currentSearchStart, spaceIdx + 1);
-      Integer ruleId = Integer.valueOf(ruleName.substring(4, ruleName.length() - 1));
+      Integer ruleId = Integer.valueOf(ruleName.substring(1, ruleName.length() - 1));
       RePairRule rule = repairGrammar.getRules().get(ruleId);
       if (rule != null) {
         if (rule.expandedRuleString.charAt(rule.expandedRuleString.length() - 1) == ' ') {
@@ -67,7 +67,7 @@ public class TestGrammarByDecompressing {
           resultString = resultString.replaceAll(ruleName, rule.expandedRuleString + SPACE);
         }
       }
-      currentSearchStart = resultString.indexOf("Rule", spaceIdx);
+      currentSearchStart = resultString.indexOf("r", spaceIdx);
     }
 
     assertTrue("asserting new implementation correctness",

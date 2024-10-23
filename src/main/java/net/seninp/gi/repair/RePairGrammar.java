@@ -17,7 +17,7 @@ import net.seninp.jmotif.sax.datastructure.SAXRecords;
 public class RePairGrammar {
 
   /** Common prefix. */
-  private static final String THE_R = "r";
+  private static final char THE_R = 'R';
 
   /** The spacer. */
   private static final char SPACE = ' ';
@@ -90,7 +90,7 @@ public class RePairGrammar {
           }
         }
 
-        currentSearchStart = resultString.indexOf("r", spaceIdx);
+        currentSearchStart = resultString.indexOf("R", spaceIdx);
       }
 
       rr.setExpandedRule(resultString.trim());
@@ -115,7 +115,7 @@ public class RePairGrammar {
           resultString = resultString.replaceAll(ruleName, rule.expandedRuleString + SPACE);
         }
       }
-      currentSearchStart = resultString.indexOf("r", spaceIdx);
+      currentSearchStart = resultString.indexOf("R", spaceIdx);
     }
     this.r0ExpandedString = resultString;
 
@@ -177,7 +177,7 @@ public class RePairGrammar {
       String str = r.getRuleString();
       String[] tokens = str.split("\\s+");
       for (String t : tokens) {
-        if (t.matches("r\\d+")) {
+        if (t.startsWith("R")) {
           Integer ruleId = Integer.valueOf(t.substring(1));
           GrammarRuleRecord rr = res.get(ruleId);
           // System.out.print(rr.getRuleUseFrequency() + " ");

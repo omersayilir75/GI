@@ -3,6 +3,7 @@ package net.seninp.gi.logic;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * Data container for SAX rules. Provides an abstraction which is used for transferring grammars
@@ -21,6 +22,8 @@ public class GrammarRuleRecord implements Serializable {
 
   /* The rule string, this may contain non-terminal symbols. */
   private String ruleString;
+
+  private List<String> ruleStringList;
 
   /* The expanded rule string, this contains only terminal symbols. */
   private String expandedRuleString;
@@ -95,7 +98,7 @@ public class GrammarRuleRecord implements Serializable {
    * @return name of the rule, something like R1 or R30 etc.
    */
   public String getRuleName() {
-    return "r" + this.ruleNumber;
+    return "R" + this.ruleNumber;
   }
 
   /**
@@ -110,6 +113,14 @@ public class GrammarRuleRecord implements Serializable {
    */
   public void setRuleString(String ruleString) {
     this.ruleString = ruleString;
+  }
+
+  public List<String> getRuleStringList() {
+    return ruleStringList;
+  }
+
+  public void setRuleStringList(List<String> ruleStringList) {
+    this.ruleStringList = ruleStringList;
   }
 
   /**
@@ -216,7 +227,7 @@ public class GrammarRuleRecord implements Serializable {
   }
 
   public String toString() {
-    return "r" + this.ruleNumber + " -> " + this.ruleString;
+    return "R" + this.ruleNumber + " -> " + this.ruleString;
   }
 
   public int getRuleNumber() {

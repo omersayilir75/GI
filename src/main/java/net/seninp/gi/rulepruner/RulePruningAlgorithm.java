@@ -242,7 +242,7 @@ public class RulePruningAlgorithm {
     StringBuilder newRuleStr = new StringBuilder();
 
     for (String t : tokens) {
-      if (t.startsWith("r")) {
+      if (t.startsWith("R")) {
         Integer ruleId = Integer.valueOf(t.substring(1));
         if (usedRules.contains(ruleId)) {
           newRuleStr.append(t).append(" ");
@@ -275,12 +275,12 @@ public class RulePruningAlgorithm {
     StringBuilder newRuleString = new StringBuilder();
     String[] tokens = ruleStr.split("\\s+");
     for (String t : tokens) {
-      if (t.startsWith("r")) {
+      if (t.startsWith("R")) {
         Integer rId = Integer.valueOf(t.substring(1));
         if (usedRules.contains(rId)) {
           newRuleString.append(t).append(" ");
         } else {
-          logger.debug("removed rule " + rId + " from r0");
+          logger.debug("removed rule " + rId + " from R0");
         }
       }
     }

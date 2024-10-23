@@ -14,7 +14,7 @@ import net.seninp.jmotif.sax.datastructure.SAXRecords;
 
 public class TestGrammarByDecompressing {
 
-  private static final String THE_R = "r";
+  private static final char THE_R = 'R';
 
   private static final char SPACE = ' ';
 
@@ -67,7 +67,7 @@ public class TestGrammarByDecompressing {
           resultString = resultString.replaceAll(ruleName, rule.expandedRuleString + SPACE);
         }
       }
-      currentSearchStart = resultString.indexOf("r", spaceIdx);
+      currentSearchStart = resultString.indexOf("R", spaceIdx);
     }
 
     assertTrue("asserting new implementation correctness",

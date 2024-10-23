@@ -44,7 +44,7 @@ public class RulePrunerFactory {
   private static int computeRuleSize(Integer paaSize, String[] tokens) {
     int ruleSize = 0;
     for (String t : tokens) {
-      if (t.startsWith("r")) {
+      if (t.startsWith("R")) {
         // if it is a non-terminal, i.e., another rule, we account for a 4 bytes (32 bits
         // offset) pointer onto the rule data structure
         ruleSize = ruleSize + 4;

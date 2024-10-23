@@ -46,7 +46,7 @@ public class TestRulePruner {
       r1.setRuleNumber(1);
 
       r1.setExpandedRuleString("abc abc cba");
-      r1.setRuleString("r2 abc");
+      r1.setRuleString("R2 abc");
 
       ArrayList<RuleInterval> intervals1 = new ArrayList<RuleInterval>();
       intervals1.add(new RuleInterval(0, 2));
@@ -63,7 +63,7 @@ public class TestRulePruner {
       r0.setRuleNumber(0);
 
       r0.setExpandedRuleString("abc abc cba xxx abc abc cba");
-      r0.setRuleString("r1 xxx r1");
+      r0.setRuleString("R1 xxx R1");
 
       ArrayList<RuleInterval> intervals0 = new ArrayList<RuleInterval>();
       intervals0.add(new RuleInterval(0, 7));

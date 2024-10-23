@@ -154,7 +154,7 @@ public class RePairRule {
   }
 
   public String toString() {
-    return "r" + this.ruleNumber;
+    return "R" + this.ruleNumber;
   }
 
   public void assignLevel() {

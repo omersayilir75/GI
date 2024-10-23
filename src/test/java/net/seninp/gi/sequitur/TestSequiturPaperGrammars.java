@@ -4,6 +4,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 import java.util.ArrayList;
+import java.util.List;
+
 import org.junit.Test;
 import net.seninp.gi.logic.GrammarRules;
 import net.seninp.gi.logic.RuleInterval;
@@ -15,17 +17,17 @@ import net.seninp.util.StackTrace;
 public class TestSequiturPaperGrammars {
 
   private static final String TEST1_STRING = "a b c d b c";
-  private static final String TEST1_R0 = "a r1 d r1";
+  private static final String TEST1_R0 = "a R1 d R1";
   private static final String TEST1_R1 = "b c";
 
   private static final String TEST2_STRING = "a b c d b c a b c d b c";
-  private static final String TEST2_R0 = "r1 r1";
-  private static final String TEST2_R1 = "a r2 d r2";
+  private static final String TEST2_R0 = "R1 R1";
+  private static final String TEST2_R1 = "a R2 d R2";
   private static final String TEST2_R2 = "b c";
 
   private static final String TEST3_STRING = "a b a b c a b c d a b c d e a b c d e f";
-  private static final String TEST3_R0 = "r1 r2 r3 r4 r4 f";
-  private static final String TEST3_R4 = "r3 e";
+  private static final String TEST3_R0 = "R1 R2 R3 R4 R4 f";
+  private static final String TEST3_R4 = "R3 e";
 
   @Test
   public void test3() {
@@ -84,6 +86,23 @@ public class TestSequiturPaperGrammars {
   }
 
   @Test
+  public void myTest() {
+
+    try {
+      String input = "print ID + ID + ID + ID + ID";
+      SAXRule r = SequiturFactory.runSequitur(input);
+      GrammarRules rules = r.toGrammarRulesData();
+      //iterate through rules...
+
+      List<String> ab = rules.get(0).getRuleStringList();
+      int dbg = 0;
+    } catch (Exception e) {
+      fail("Exception shouldnt be thrown: " + StackTrace.toString(e));
+    }
+  }
+
+
+    @Test
   public void test1Full() {
 
     try {

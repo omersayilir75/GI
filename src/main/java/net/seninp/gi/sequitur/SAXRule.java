@@ -25,8 +25,6 @@ import java.util.Set;
 import java.util.TreeSet;
 import java.util.Vector;
 import java.util.concurrent.atomic.AtomicInteger;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import net.seninp.gi.logic.GrammarRuleRecord;
 import net.seninp.gi.logic.GrammarRules;
 
@@ -150,10 +148,10 @@ public class SAXRule {
             referedTo.index = index;
             rules.addElement(referedTo);
           }
-          text.append("r");
+          text.append('R');
           text.append(index);
 
-          currentRuleString.append("r");
+          currentRuleString.append('R');
           currentRuleString.append(index);
         }
         else {
@@ -327,7 +325,7 @@ public class SAXRule {
       String[] split = curString.split(" ");
 
       for (String s : split) {
-        if (s.matches("r\\d+")) {
+        if (s.startsWith("R")) {
           resultString.append(" ").append(expandRule(Integer.valueOf(s.substring(1, s.length()))));
         }
         else {
@@ -346,14 +344,14 @@ public class SAXRule {
     GrammarRuleRecord ruleRecord = arrRuleRecords.get(0);
     resultString.append(ruleRecord.getRuleString());
 
-    int currentSearchStart =  indexOfRegex(String.valueOf(resultString), "r\\d+");
+    int currentSearchStart = resultString.indexOf("R");
     while (currentSearchStart >= 0) {
       int spaceIdx = resultString.indexOf(" ", currentSearchStart);
       String ruleName = resultString.substring(currentSearchStart, spaceIdx + 1);
       Integer ruleId = Integer.valueOf(ruleName.substring(1, ruleName.length() - 1));
       resultString.replace(spaceIdx - ruleName.length() + 1, spaceIdx + 1,
-              arrRuleRecords.get(ruleId).getExpandedRuleString());
-      currentSearchStart = indexOfRegex(String.valueOf(resultString), "r\\d+");
+          arrRuleRecords.get(ruleId).getExpandedRuleString());
+      currentSearchStart = resultString.indexOf("R");
     }
     ruleRecord.setExpandedRuleString(resultString.toString().trim());
     // ruleRecord.setRuleYield(countSpaces(resultString));
@@ -372,7 +370,7 @@ public class SAXRule {
     String[] split = curString.split(" ");
 
     for (String s : split) {
-      if (s.matches("r\\d+")) {
+      if (s.startsWith("R")) {
         resultString.append(" ").append(expandRule(Integer.valueOf(s.substring(1, s.length()))));
       }
       else {
@@ -446,6 +444,7 @@ public class SAXRule {
     int processedRules = 0;
 
     StringBuilder sbCurrentRule = new StringBuilder();
+    ArrayList<String> alCurrentRule = new ArrayList<>();
 
     while (processedRules < rules.size()) {
 
@@ -462,11 +461,13 @@ public class SAXRule {
             referedTo.index = index;
             rules.addElement(referedTo);
           }
-          sbCurrentRule.append("r");
+          sbCurrentRule.append('R');
           sbCurrentRule.append(index);
+          alCurrentRule.add("R" + index);
         }
         else {
           sbCurrentRule.append(sym.value);
+          alCurrentRule.add(sym.value);
         }
         sbCurrentRule.append(' ');
       }
@@ -475,6 +476,7 @@ public class SAXRule {
 
       ruleConteiner.setRuleNumber(processedRules);
       ruleConteiner.setRuleString(sbCurrentRule.toString());
+      ruleConteiner.setRuleStringList(alCurrentRule);
 
       ruleConteiner.setRuleLevel(currentRule.getLevel());
 
@@ -484,20 +486,10 @@ public class SAXRule {
       arrRuleRecords.add(ruleConteiner);
 
       sbCurrentRule = new StringBuilder();
+      alCurrentRule = new ArrayList<>();
       processedRules++;
     }
 
-  }
-
-  private static int indexOfRegex(String str, String regex) {
-    Pattern pattern = Pattern.compile(regex);
-    Matcher matcher = pattern.matcher(str);
-
-    if (matcher.find()) {
-      return matcher.start();
-    } else {
-      return -1;  // Return -1 if no match found
-    }
   }
 
   public GrammarRules toGrammarRulesData() {
